@@ -452,6 +452,3 @@ instance FromJSON CustomData where
 instance FromJSON EnumTag where
   parseJSON = genericParseJSON ldtkOpts
 
-
-test :: World
-test = World "ok" "hi" [] (Just 5) (Just 10) Free
