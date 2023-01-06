@@ -1,0 +1,63 @@
+name:                ldtk-types
+version:             0.1.0.0
+github:              "isovector/ldtk-types"
+license:             BSD3
+author:              "Sandy Maguire"
+maintainer:          "sandy@sandymaguire.me"
+copyright:           "Sandy Maguire"
+
+extra-source-files:
+- README.md
+- CHANGELOG.md
+
+# Metadata used when publishing your package
+synopsis:            Datatypes and Aeson instances for parsing LDtk
+category:            Data
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/isovector/ldtk-types#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- aeson
+- text
+
+ghc-options:
+- -Wall
+- -Wcompat
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wpartial-fields
+- -Wredundant-constraints
+
+default-extensions:
+- DeriveDataTypeable
+- DeriveFoldable
+- DeriveFunctor
+- DeriveGeneric
+- DeriveTraversable
+- DerivingStrategies
+- GeneralisedNewtypeDeriving
+- LambdaCase
+- NamedFieldPuns
+- ScopedTypeVariables
+- TraditionalRecordSyntax
+- TupleSections
+- TypeApplications
+
+library:
+  source-dirs: src
+
+tests:
+  ldtk-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - ldtk-types
