@@ -18,7 +18,7 @@ import Data.Aeson.Types (Parser)
 ldtkOpts :: Options
 ldtkOpts = defaultOptions
   { fieldLabelModifier = \case
-      -- Names that are too attrocious to allow
+      -- Names that are too atrocious to allow
       "data'"     -> "data"
       "enumid"    -> "id"
       "tile_flip" -> "f"
