@@ -109,7 +109,7 @@ data Definitions = Definitions
   deriving stock (Eq, Ord, Show, Read, Generic)
 
 data EnumValueDef = EnumValueDef
-  { __tileSrcRect :: Rect Int
+  { __tileSrcRect :: Maybe (Rect Int)
   , color :: Int
   , enumid :: Text
   , tileId :: Maybe Int
