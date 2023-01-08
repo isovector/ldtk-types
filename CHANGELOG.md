@@ -8,4 +8,8 @@ and this project adheres to the
 
 ## Unreleased
 
+## 0.2.0.0 - 2023-01-08
+
+- Support ldtk-1.2.3
+
 ## 0.1.0.0 - YYYY-MM-DD

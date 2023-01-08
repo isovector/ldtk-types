@@ -326,7 +326,7 @@ data Tile = Tile
   { tile_flip :: Flip
   , px :: Pair Int
   , src :: Pair Int
-  , t :: Int
+  , t :: Maybe Int
   }
   deriving stock (Eq, Ord, Show, Read, Generic)
 

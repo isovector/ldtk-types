@@ -5,7 +5,7 @@ cabal-version: 1.12
 -- see: https://github.com/sol/hpack
 
 name:           ldtk-types
-version:        0.1.0.0
+version:        0.2.0.0
 synopsis:       Datatypes and Aeson instances for parsing LDtk
 description:    Please see the README on GitHub at <https://github.com/isovector/ldtk-types#readme>
 category:       Data
