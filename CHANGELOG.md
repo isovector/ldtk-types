@@ -8,8 +8,11 @@ and this project adheres to the
 
 ## Unreleased
 
+## 1.2.3 - 2023-01-13
+
+- Added `LDtk.loadLDtk`
+- Package version now follows LDtk.
+
 ## 0.2.0.0 - 2023-01-08
 
 - Support ldtk-1.2.3
-
-## 0.1.0.0 - YYYY-MM-DD
