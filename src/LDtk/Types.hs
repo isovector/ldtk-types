@@ -55,6 +55,7 @@ data EntityDef = EntityDef
   , tileRenderMode :: TileRenderMode
   , tilesetId :: Maybe Int
   , uid :: Int
+  , uiTileRect :: Maybe TilesetRect
   , width :: Int
   }
   deriving stock (Eq, Ord, Show, Read, Generic)
@@ -109,10 +110,9 @@ data Definitions = Definitions
   deriving stock (Eq, Ord, Show, Read, Generic)
 
 data EnumValueDef = EnumValueDef
-  { __tileSrcRect :: Maybe (Rect Int)
-  , color :: Int
+  { color :: Int
+  , tileRect :: Maybe TilesetRect
   , enumid :: Text
-  , tileId :: Maybe Int
   }
   deriving stock (Eq, Ord, Show, Read, Generic)
 
@@ -128,8 +128,11 @@ data EnumDef = EnumDef
 
 data GridValue = GridValue
   { color :: Color
+  -- TODO(sandy): if zero should be null
+  , groupUid :: Maybe Int
   , identifier :: Maybe Text
   , value :: Int
+  , tile :: Maybe TilesetRect
   }
   deriving stock (Eq, Ord, Show, Read, Generic)
 
@@ -201,17 +204,34 @@ data BgPos = BgPos
   }
   deriving stock (Eq, Ord, Show, Read, Generic)
 
-data Direction = North | South | East | West
+data Direction
+  = North | South | East | West
+  | NorthEast | NorthWest | SouthEast | SouthWest
+  | LowerDepth | GreaterDepth | OverlappingDepth
   deriving stock (Eq, Ord, Show, Read, Generic)
 
 instance FromJSON Direction where
   parseJSON v = do
-    parseJSON @String v >>= \case
-      "n" -> pure North
-      "s" -> pure South
-      "e" -> pure East
-      "w" -> pure West
+    parseJSON @String v >>= pure . \case
+      "n" -> North
+      "ne" -> NorthEast
+      "nw" -> NorthWest
+      "s" -> South
+      "se" -> SouthEast
+      "sw" -> SouthWest
+      "e" -> East
+      "w" -> West
+      "<" -> LowerDepth
+      ">" -> GreaterDepthy
+      "o" -> OverlappingDepth
       x -> fail $ "not a direction: " <> show x
+
+data IntGridValueGroup = IntGridValueGroup
+  { color :: Maybe Color
+  , identifier :: Maybe String
+  , uid :: Int
+  }
+  deriving stock (Eq, Ord, Show, Read, Generic)
 
 data Neighbour = Neighbour
   { dir :: Direction
@@ -324,6 +344,8 @@ data TilesetRect = TilesetRect
 
 data Tile = Tile
   { tile_flip :: Flip
+  -- TODO(sandy): should default to 1 if not present
+  , a :: Float
   , px :: Pair Int
   , src :: Pair Int
   , t :: Maybe Int
@@ -337,6 +359,8 @@ data Entity = Entity
   , __smartColor :: Color
   , __tags :: [Text]
   , __tile :: Maybe TilesetRect
+  , __worldX :: Maybe Int
+  , __worldY :: Maybe Int
   , defUid :: Int
   , fieldInstances :: [Field]
   , height :: Int
